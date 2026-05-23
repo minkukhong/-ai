@@ -4,7 +4,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 st.set_page_config(page_title="용마고 AI", page_icon="🇰🇷")
-st.title("용마고 생산형 AI")
+st.title("용마고 생성형 AI")
 
 # 사이드바에서 API 키 안전하게 입력받기
 with st.sidebar:
@@ -23,7 +23,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # 사용자가 질문을 입력했을 때
-if prompt := st.chat_input("궁금한 것을 물어보세요!"):
+if prompt := st.chat_input("궁금한 것을 물어보세요"):
     # 1. 사용자 질문 화면에 표시 및 저장
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -32,7 +32,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
     # 2. AI 답변 생성 영역
     with st.chat_message("assistant"):
         if not gemini_key or not tavily_key:
-            st.error("왼쪽 사이드바에 Gemini 키와 Tavily 키를 모두 입력해주세요!")
+            st.error("왼쪽 사이드바에 Gemini 키와 Tavily 키를 모두 입력해주세요")
         else:
             # 로딩 스피너(애니메이션) 보여주기
             with st.spinner("인터넷 검색 및 답변 작성 중..."):
@@ -50,7 +50,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
 
                     # AI가 참고할 프롬프트 구성
                     full_prompt = f"""
-                    당신은 똑똑하고 친절한 AI 조수입니다. 
+                    당신은 AI 조수입니다. 
                     아래의 웹 검색 결과를 바탕으로 사용자의 질문에 친절하게 답변해주세요.
                     
                     검색 결과: {search_results}
