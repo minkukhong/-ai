@@ -33,7 +33,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
 
                 full_prompt = f"웹 검색 결과: {search_results}\n\n사용자 질문: {prompt}\n\n위 검색 결과를 바탕으로 질문에 친절하게 한국어로 답변해줘."
 
-                api_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={os.environ['GOOGLE_API_KEY']}"
+                api_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={os.environ['GOOGLE_API_KEY']}"
                 headers = {"Content-Type": "application/json"}
                 payload = {"contents": [{"parts": [{"text": full_prompt}]}]}
 
@@ -46,6 +46,3 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
                     st.session_state.messages.append({"role": "assistant", "content": answer})
                 else:
                     st.error(f"Error: {result_json['error']['message']}")
-
-            except Exception as e:
-                st.error(f"Error: {e}")
