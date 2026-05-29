@@ -33,8 +33,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
 
                 full_prompt = f"웹 검색 결과: {search_results}\n\n사용자 질문: {prompt}\n\n위 검색 결과를 바탕으로 질문에 친절하게 한국어로 답변해줘."
 
-                # 구버전 규격 키까지 전부 무조건 받아주는 만능 주소 통로
-                api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={os.environ['GOOGLE_API_KEY']}"
+                api_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={os.environ['GOOGLE_API_KEY']}"
                 headers = {"Content-Type": "application/json"}
                 payload = {"contents": [{"parts": [{"text": full_prompt}]}]}
 
