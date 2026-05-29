@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-from langchain_google_genai import ChatGoogleGenerativeAI
+import google.generativeai as genai
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 st.set_page_config(page_title="용마고 AI", page_icon="🇰🇷")
@@ -9,6 +9,7 @@ st.title("🚀 용마고 생산형 AI")
 try:
     os.environ["GOOGLE_API_KEY"] = str(st.secrets["GOOGLE_API_KEY"]).strip()
     os.environ["TAVILY_API_KEY"] = str(st.secrets["TAVILY_API_KEY"]).strip()
+    genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 except Exception as e:
     st.error("API Key Error. Please check Streamlit Secrets.")
     st.stop()
@@ -29,11 +30,6 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
         with st.spinner("Searching..."):
             try:
                 search = TavilySearchResults(k=3)
-                
-                llm = ChatGoogleGenerativeAI(
-                    model="models/gemini-1.5-flash-latest"
-                )
-
                 search_results = search.run(prompt)
 
                 full_prompt = f"""
@@ -44,9 +40,10 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
                 사용자 질문: {prompt}
                 """
 
-                response = llm.invoke(full_prompt).content
+                model = genai.GenerativeModel("gemini-1.5-flash")
+                response = model.generate_content(full_prompt).text
+                
                 st.markdown(response)
-
                 st.session_state.messages.append({"role": "assistant", "content": response})
 
             except Exception as e:
