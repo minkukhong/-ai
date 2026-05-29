@@ -31,8 +31,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
                 search = TavilySearchResults(k=3)
                 
                 llm = ChatGoogleGenerativeAI(
-                    model="gemini-1.5-flash",
-                    google_api_key=os.environ["GOOGLE_API_KEY"]
+                    model="models/gemini-1.5-flash-latest"
                 )
 
                 search_results = search.run(prompt)
