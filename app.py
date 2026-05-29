@@ -30,7 +30,6 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
             try:
                 search = TavilySearchResults(k=3)
                 
-                # [핵심 수정] 클라이언트 옵션으로 v1 버전을 강제 지정하여 404 에러를 우회합니다.
                 llm = ChatGoogleGenerativeAI(
                     model="gemini-1.5-flash",
                     client_options={"api_version": "v1"}
