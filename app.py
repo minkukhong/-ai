@@ -33,7 +33,7 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
         with st.spinner("Searching..."):
             try:
                 search = TavilySearchResults(k=3)
-                llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+                llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")
 
                 search_results = search.run(prompt)
 
