@@ -4,7 +4,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 st.set_page_config(page_title="용마고 AI", page_icon="🇰🇷")
-st.title("🚀 용마고 생성형 AI")
+st.title("🚀 용마고 생산형 AI")
 
 try:
     os.environ["GOOGLE_API_KEY"] = str(st.secrets["GOOGLE_API_KEY"]).strip()
@@ -29,7 +29,12 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
         with st.spinner("Searching..."):
             try:
                 search = TavilySearchResults(k=3)
-                llm = ChatGoogleGenerativeAI(model="models/gemini-1.5-flash")
+                
+                # [핵심 수정] 클라이언트 옵션으로 v1 버전을 강제 지정하여 404 에러를 우회합니다.
+                llm = ChatGoogleGenerativeAI(
+                    model="gemini-1.5-flash",
+                    client_options={"api_version": "v1"}
+                )
 
                 search_results = search.run(prompt)
 
