@@ -4,7 +4,7 @@ import requests
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 st.set_page_config(page_title="용마고 AI", page_icon="🇰🇷")
-st.title("🚀 용마고 생산형 AI")
+st.title("🚀 용마고 생성형 AI")
 
 try:
     os.environ["GOOGLE_API_KEY"] = str(st.secrets["GOOGLE_API_KEY"]).strip()
