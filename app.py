@@ -30,7 +30,8 @@ if prompt := st.chat_input("궁금한 것을 물어보세요!"):
             try:
                 search = TavilySearchResults(k=3)
                 search_results = search.run(prompt)
-                full_prompt = f"웹 검색 결과: {search_results}\n\n사용자 질문: {prompt}\n\n위 검색 결과를 바탕으로 질문에 친절하게 한국어로 답변해줘."
+                # 기존 33행을 아래 내용으로 교체 (한 줄로 길게 이어지는 코드입니다)
+full_prompt = f"당신은 해당 교육 기관의 전용 AI 안내 시스템입니다. 다음은 사용자와 나눈 이전 대화 기록입니다:\n{st.session_state.messages}\n\n웹 검색 결과:\n{search_results}\n\n사용자의 최신 질문: {prompt}\n\n위의 대화 기록과 검색 결과를 바탕으로, 외부의 엉뚱한 주식 정보나 무관한 개념은 배제하고 오직 대상 학교의 정보에만 집중하여 친절하게 한국어로 답변해줘."
                 api_url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={os.environ['GOOGLE_API_KEY']}"
                 headers = {"Content-Type": "application/json"}
                 payload = {"contents": [{"parts": [{"text": full_prompt}]}]}
